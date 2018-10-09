@@ -1,0 +1,51 @@
+{% extends "axfApp/base/base.html" %}
+{% load static %}
+{% block title %}首页{% endblock %}
+{% block link %}
+ <link rel="stylesheet" type="text/css" href="{% static 'axfApp/market/css/market.css' %}">
+{% endblock link %}
+
+{% block script %}
+        <script type="application/javascript" src="{% static 'axfApp/market/js/market.js' %}"></script>
+{% endblock script %}
+
+{% block main %}
+    <div id="marketDiv" class="container">
+        <div class="col-xs-3" id="leftDiv">
+            <ul>
+                {% for item in categories %}
+                    <li><span id="yellow{{ item.categoryId }}"></span><a href="/market/{{ item.categoryId }}" >{{ item.categoryName }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div  class="col-xs-9" id="rightDiv">
+            <div class="container " id="rightTopDiv">
+                <div class="col-xs-6"><span>全部分类</span></div>
+                <div class="col-xs-6"><span>综合排序</span></div>
+            </div>
+            <div id="rightBottomDiv">
+                <div >
+                    <ul>
+                    {% for item in products %}
+                        <li>
+                            <a href="#">
+                                <img src="{{ item.img }}" />
+                                <div>
+                                    {% if item.name|length > 10 %}
+                                        <h6>{{ item.name|slice:"10" }}...</h6>
+                                        {% else %}
+                                            <h6>{{ item.name }}</h6>
+                                    {% endif %}
+                                    <p>{{ item.specifics }}</p>
+                                    <p><span>{{ item.price }}</span>  <span>{{ item.marketPrice }}</span></p>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}
